@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.ts"
+  },
+  "host_permissions": [ "<all_urls>" ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "content/index.tsx"
+      ],
+      "run_at": "document_end"
+    } 
+  ]
+}

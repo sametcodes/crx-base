@@ -7,9 +7,7 @@ import App from './App' // this is the main application component
 
 import '@/components/globals.css' // this required for tailwindcss stylings
 
-
-// no need to wait for element to be loaded, you can append the element to the root directly
-onElementLoaded("#waiting_element_selector", async (element) => {
+onElementLoaded("#waiting_element_selector", (element) => {
     const extensionContainer = document.createElement('div');
     extensionContainer.classList.add("root_extension");
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useContainer } from "@/content/context";
+import { useContainer } from "@/lib/crx-base/context";
 
 const App = () => {
     const { container } = useContainer();

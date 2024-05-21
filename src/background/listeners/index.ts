@@ -1,6 +1,5 @@
-import { SendResponseType } from "@/types";
 
-function handleListener<T>(request: T, sender: chrome.runtime.MessageSender, sendResponse: (message: SendResponseType) => void) {
+function handleListener<T>(request: T, sender: chrome.runtime.MessageSender, sendResponse: (message: T) => void) {
     (async () => {
         // handle requests with async/await here
     })();

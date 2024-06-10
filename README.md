@@ -40,10 +40,55 @@ onElementLoaded('#waiting_element_selector', (element) => {
 })
 ```
 
+#### Handling containers
+
+`crx-base` provides `useContainer` hook to access the container element in your components. This is useful when you use components that require a container to be rendered such as `Dialog`. Hovewer, `shadcn/ui` components do not provide a container by default so you need to pass it manually.
+
+For instance, if you want to use `AlertDialog` component, you need to pass the container to the `AlertDialogPortal` component.
+
+```typescript
+const AlertDialogContent = React.forwardRef<
+  React.ElementRef<typeof AlertDialogPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
+>(({ className, ...props }, ref) => {
+  const { container } = useContainer();
+  return (
+    <AlertDialogPortal container={container}>
+      <AlertDialogOverlay />
+      <AlertDialogPrimitive.Content
+        ref={ref}
+        className={cn(
+          "...",
+          className
+        )}
+        {...props}
+      />
+    </AlertDialogPortal>
+  )
+})
+```
+
+
 ### Using background scripts
 
-_TODO_.
+`crx-base` provides `createBackground` function to create a background script. Background scripts are used to run long-running tasks, such as listening for events or managing state.
 
-### Using popup scripts
+You can edit the background script in `src/background/listeners/index.ts`.
 
-_TODO_.
+```typescript
+function handleListener<T>(
+    request: T,
+    sender: chrome.runtime.MessageSender,
+    sendResponse: (message: T) => void
+) {
+    (async () => {
+        // handle requests with async/await here
+    })();
+
+    // this is required to make the listener async
+    return true;
+}
+
+chrome.runtime.onMessageExternal.addListener(handleListener);
+chrome.runtime.onMessage.addListener(handleListener);
+```
